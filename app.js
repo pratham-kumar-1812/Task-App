@@ -159,9 +159,6 @@ select.addEventListener('change', function(event) {
   // Append the task div to the parent container
   document.getElementById(parentDiv).appendChild(taskDiv);
 }
-window.addEventListener('beforeunload', function(event) {
 
-  saveArrayAsJson();
-});
 loadTask();
 
