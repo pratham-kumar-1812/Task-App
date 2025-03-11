@@ -1,4 +1,5 @@
-console.log("Pratham kumar");
+console.log("<<----Pratham kumar----->>");
+
 const status_list=["Pending", "In Progress", "Completed"]
 let Tasks=[];
 //Tasks related functions
