@@ -1,6 +1,7 @@
 console.log("Pratham kumar");
 const status_list=["Pending", "In Progress", "Completed"]
 let Tasks=[];
+//Tasks related functions
 function createTask(title,Des,status){
     Tasks.push( {
         id: Date.now().toString() + Math.random().toString(36).substring(2, 15),
@@ -45,11 +46,25 @@ async function loadTask() {
         console.error('Error loading tasks.json:', err);  // Catch errors (network or JSON parsing)
       });
   }
-function saveTask(){
+function saveArrayAsJson() {
+ 
+    const jsonString = JSON.stringify(Tasks, null, 2);
 
-}  
+    // Create a Blob with the JSON data
+    const blob = new Blob([jsonString], { type: 'application/json' });
+
+    // Create a link element to trigger the download
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'Task.json'; 
+
+    //click the link to trigger the download
+    link.click();
+} 
 
 /*DOM Manupulation*/
+
+
 document.getElementById("myform").addEventListener('submit',(e)=>{
   e.preventDefault();
   const title = document.getElementById('title').value.trim();
@@ -96,6 +111,14 @@ function addTask(task,parentDiv) {
   const taskTitle = document.createElement('div');
   taskTitle.classList.add('task_title');
   taskTitle.textContent = task.title;
+  //Edit the task
+  taskTitle.addEventListener('click',()=>{
+     document.getElementById('title').value=task.title;
+    document.getElementById('description').value=task.description==undefined?"":task.description;
+    document.getElementById('dropdown').value=task.status;
+  })
+  
+
   
   // Create the select dropdown
   const select = document.createElement('select');
@@ -113,8 +136,6 @@ function addTask(task,parentDiv) {
   
   select.append(optionPending, optionInProcess, optionCompleted);
   select.value=task.status;
-  //Update status 
- 
 
 // Add an event listener to the dropdown for the 'change' event
 select.addEventListener('change', function(event) {
@@ -138,5 +159,9 @@ select.addEventListener('change', function(event) {
   // Append the task div to the parent container
   document.getElementById(parentDiv).appendChild(taskDiv);
 }
+window.addEventListener('beforeunload', function(event) {
+
+  saveArrayAsJson();
+});
 loadTask();
 
