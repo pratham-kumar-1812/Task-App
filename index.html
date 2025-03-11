@@ -8,43 +8,27 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    
+    <div id="modal-container"></div>
     <header>
           <h1> Task Management App !!</h1>
     </header>
     <main>
-        <div class="Create_task">
-            <form id="myform" >
-                <label for="title">Title</label>
-                <input id="title" name="title" class="title" type="text">
-                <label for="description">Description</label>
-                <textarea  name="description" id="description"></textarea>
-                <label for="status">Choose a Status:</label>
-    <select id="dropdown" name="status">
-        <option value="Pending">Pending</option>
-        <option value="In Progress">In Progress</option>
-        <option value="Completed">Completed</option>     
-    </select>
-    <div class="btn_container">
-        <button type="submit" class="create">Create</button>
-    </div>
-               
-            </form>
-            
-        </div>
+        <button id="openModalBtn">Add Task</button>
     <div class="Tasks_container">
         <div class="task_box">
             <h3>
                 Pending Tasks
             </h3>
-            <div id="Pending">
+            <div  id="Pending">
               
             </div>
         </div>
         <div class="task_box">
             <h3>
-                In progress
+                In Progress Task
             </h3>
-            <div id="In_Process">
+            <div  id="In_Process">
 
             </div>
            

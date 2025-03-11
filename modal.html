@@ -1,0 +1,133 @@
+<div id="myModal" class="modal">
+    <div class="Create_task">
+        <span class="close-button">❌</span>
+        <form id="myform">
+            <label for="title">Title</label>
+            <input id="title" name="title" class="title" type="text" required>
+            
+            <label for="description">Description</label>
+            <textarea name="description" id="description" required></textarea>
+            
+            <label for="status">Choose a Status:</label>
+            <select id="dropdown" name="status">
+                <option value="Pending">Pending</option>
+                <option value="In_Process">In Progress</option>
+                <option value="Completed">Completed</option>     
+            </select>
+            
+            <div class="btn_container">
+                <button id="create" class="create" type="submit">Save</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+<style>
+   
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 1000; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); 
+    overflow: auto;
+}
+
+
+.Create_task {
+    background-color: #3F4F44;
+    padding: 40px;
+    border-radius: 10px;
+    max-width: 500px;
+    margin: 10% auto;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    color: #DCD7C9;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    position: relative;
+}
+
+
+.close-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 30px;
+    font-weight: bold;
+    color: #DCD7C9;
+    cursor: pointer;
+}
+
+.close-button:hover {
+    color: #A27B5C;
+}
+
+
+label {
+    font-size: 1.1rem;
+    color: #DCD7C9;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.title, textarea, #dropdown {
+    width: 100%;
+    padding: 12px;
+    margin: 5px 0;
+    background-color: #DCD7C9;
+    color: #3F4F44;
+    border: 1px solid #3F4F44;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+
+.title:focus, textarea:focus, #dropdown:focus {
+    outline: none;
+    border-color: #A27B5C;
+}
+
+
+textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+
+.btn_container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+
+.create {
+    width: 100%;
+    padding: 15px;
+    background-color: #A27B5C;
+    border: none;
+    color: white;
+    font-size: 1.2rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.create:hover {
+    background-color: #3F4F44;
+    transform: scale(1.05);
+}
+
+
+</style>
+
+<script>
+  
+   
+</script>

@@ -2,6 +2,7 @@ console.log("<<----Pratham kumar----->>");
 
 const status_list=["Pending", "In Progress", "Completed"]
 let Tasks=[];
+let edit_TaskId="";
 //Tasks related functions
 function createTask(title,Des,status){
     Tasks.push( {
@@ -30,53 +31,60 @@ function changeStatus(_id,_status){
         return task;
       });
 }
+function editTask(_id,_title,_description,_status){
+  Tasks = Tasks.map(task => {
+    if (task.id === _id) {
+      return { ...task, title:_title,description:_description, status: _status };  
+    }
+    return task;
+  });
+  edit_TaskId="";
+  displayTask();
+}
 async function loadTask() {
     // Fetching the data from Task.json
-    fetch('./Task.json')
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return response.json(); 
-      })
-      .then(tasks => {
-        Tasks = tasks;  
-        displayTask(); 
-      })
-      .catch(err => {
-        console.error('Error loading tasks.json:', err);  // Catch errors (network or JSON parsing)
+    Tasks = JSON.parse(localStorage.getItem("Tasks"))==null?[]:JSON.parse(localStorage.getItem("Tasks"));  
+    displayTask(); 
+      fetch('modal.html')
+      .then(response => response.text())
+      .then(data => {
+          
+          document.getElementById('modal-container').innerHTML = data;
+          document.getElementById("create").addEventListener('click',(e)=>{
+            e.preventDefault();
+            const title = document.getElementById('title').value.trim();
+            const description=document.getElementById('description').value;
+            const status=document.getElementById('dropdown').value;
+            if(edit_TaskId!=""){
+              editTask(edit_TaskId,title,description,status);
+            }
+            else if(title!=""){
+              createTask(title,description,status);
+             
+            }
+            document.getElementById('myform').reset();
+            const modal = document.getElementById('myModal');
+            modal.style.display = "none";
+            
+          })
+          const closeButton = document.getElementsByClassName('close-button')[0];
+          const modal = document.getElementById('myModal');
+closeButton.onclick = function() {
+  modal.style.display = "none";
+}
       });
   }
-function saveArrayAsJson() {
- 
-    const jsonString = JSON.stringify(Tasks, null, 2);
-
-    // Create a Blob with the JSON data
-    const blob = new Blob([jsonString], { type: 'application/json' });
-
-    // Create a link element to trigger the download
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.download = 'Task.json'; 
-
-    //click the link to trigger the download
-    link.click();
+function saveDataToLocalStorage() {
+  localStorage.setItem("Tasks", JSON.stringify(Tasks));
+  console.log("Data saved to localStorage.");
 } 
 
 /*DOM Manupulation*/
+openModalBtn.onclick = function() {
+  const modal = document.getElementById('myModal');
+  modal.style.display = "block";
 
-
-document.getElementById("myform").addEventListener('submit',(e)=>{
-  e.preventDefault();
-  const title = document.getElementById('title').value.trim();
-  const description=document.getElementById('description').value;
-  const status=document.getElementById('dropdown').value;
-  if(title!=""){
-    createTask(title,description,status);
-    document.getElementById('myform').reset();
-  }
-  console.log(Tasks);
-})
+}
 
 function handleDelete(id){
   if(id!=''){
@@ -107,17 +115,23 @@ function addTask(task,parentDiv) {
   // Create the task div
   const taskDiv = document.createElement('div');
   taskDiv.classList.add('task-list');
+  taskDiv.draggable=true
+  taskDiv.id=task.id;
   
   // Create the task title div
   const taskTitle = document.createElement('div');
   taskTitle.classList.add('task_title');
   taskTitle.textContent = task.title;
   //Edit the task
-  taskTitle.addEventListener('click',()=>{
-     document.getElementById('title').value=task.title;
+  taskTitle.onclick=function() {
+    const modal = document.getElementById('myModal');
+    modal.style.display = "block";
+    document.getElementById('title').value=task.title;
     document.getElementById('description').value=task.description==undefined?"":task.description;
     document.getElementById('dropdown').value=task.status;
-  })
+    edit_TaskId=task.id;
+  }
+  
   
 
   
@@ -128,8 +142,8 @@ function addTask(task,parentDiv) {
   optionPending.textContent = 'Pending';
   
   const optionInProcess = document.createElement('option');
-  optionInProcess.value = 'In Process';
-  optionInProcess.textContent = 'In Process';
+  optionInProcess.value = 'In_Process';
+  optionInProcess.textContent = 'In_Process';
   
   const optionCompleted = document.createElement('option');
   optionCompleted.value = 'Completed';
@@ -159,7 +173,81 @@ select.addEventListener('change', function(event) {
   
   // Append the task div to the parent container
   document.getElementById(parentDiv).appendChild(taskDiv);
+  taskDiv.addEventListener('dragstart', function (event) {
+    event.dataTransfer.setData("task_id", task.id);
+});
 }
 
+
+// Drag and Drop Feature added
+const CompletedArea=document.getElementById("Completed");
+const PendingArea=document.getElementById("Pending");
+const In_ProcessArea=document.getElementById("In_Process");
+CompletedArea.addEventListener("dragover", function(event) {
+    event.preventDefault();
+});
+CompletedArea.addEventListener("drop", function (event) {
+  event.preventDefault();
+  const draggedId = event.dataTransfer.getData("task_id");
+
+  // Find the task object by ID
+  const draggedTask = Tasks.find(task => task.id === draggedId);
+
+  // Change the status of the dragged task to "Completed"
+  if (draggedTask) {
+      draggedTask.status = "Completed";
+      displayTask(); // Update the display
+  }
+});
+
+
+PendingArea.addEventListener("dragover", function(event) {
+  event.preventDefault();
+});
+PendingArea.addEventListener("drop", function (event) {
+event.preventDefault();
+const draggedId = event.dataTransfer.getData("task_id");
+
+// Find the task object by ID
+const draggedTask = Tasks.find(task => task.id === draggedId);
+
+// Change the status of the dragged task to "Completed"
+if (draggedTask) {
+    draggedTask.status = "Pending";
+    displayTask(); // Update the display
+}
+});
+
+
+In_ProcessArea.addEventListener("dragover", function(event) {
+  event.preventDefault();
+});
+In_ProcessArea.addEventListener("drop", function (event) {
+event.preventDefault();
+const draggedId = event.dataTransfer.getData("task_id");
+
+// Find the task object by ID
+const draggedTask = Tasks.find(task => task.id === draggedId);
+
+// Change the status of the dragged task to "Completed"
+if (draggedTask) {
+    draggedTask.status = "In_Process";
+    displayTask(); // Update the display
+}
+});
+
+
+// Save data to local storage
+
+
+
+window.addEventListener("beforeunload", (event) => {
+  saveDataToLocalStorage();
+});
 loadTask();
+
+
+
+
+
 
