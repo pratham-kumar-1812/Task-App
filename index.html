@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <header>
+          <h1>   Task Managment App !!</h1>
+    </header>
+    <main>
+        <div class="Create_task">
+            <form id="myform" >
+                <label for="title">Title</label>
+                <input id="title" name="title" class="title" type="text">
+                <label for="description">Description</label>
+                <textarea  name="description" id="description"></textarea>
+                <label for="status">Choose a Status:</label>
+    <select id="dropdown" name="status">
+        <option value="Pending">Pending</option>
+        <option value="In Progress">In Progress</option>
+        <option value="Completed">Completed</option>     
+    </select>
+    <div class="btn_container">
+        <button type="submit" class="create">Create</button>
+    </div>
+               
+            </form>
+            
+        </div>
+    <div class="Tasks_container">
+        <div class="task_box">
+            <h3>
+                Pending Tasks
+            </h3>
+            <div id="Pending">
+              
+            </div>
+        </div>
+        <div class="task_box">
+            <h3>
+                In progress
+            </h3>
+            <div id="In_Process">
+
+            </div>
+           
+        </div>
+        <div class="task_box">
+            <h3>
+                Completed task
+            </h3>
+            <div id="Completed"></div>
+        </div>
+    </div>
+    </main>
+    <footer>
+
+    </footer>
+    
+</body>
+<script src="app.js"></script>
+</html>
