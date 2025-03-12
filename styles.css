@@ -146,11 +146,11 @@ footer a:hover {
 }
 
 .delete-modal-content {
-    background: #2c3930;
+    background: linear-gradient(135deg, #A6B69D, #6C7A64);
     padding: 20px;
     border-radius: 8px;
     text-align: center;
-    color: #fff;
+    color: #41240d;
     max-width: 400px;
     width: 100%;
 }

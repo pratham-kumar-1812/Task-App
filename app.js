@@ -90,6 +90,14 @@ async function loadTask() {
           document.getElementById("create").disabled=true;
         }
     })
+    openModalBtn.onclick = function () {
+      const modal = document.getElementById("myModal");
+      modal.style.display = "flex"
+      const title=document.getElementById("title");
+      if(title.value==""){
+        document.getElementById("create").disabled=true;
+      }
+    };
     });
 }
 
@@ -99,10 +107,7 @@ function saveDataToLocalStorage() {
 }
 
 // DOM Manipulation
-openModalBtn.onclick = function () {
-  const modal = document.getElementById("myModal");
-  modal.style.display = "flex";
-};
+
 
 function handleDelete(id) {
   if (id != "") {
