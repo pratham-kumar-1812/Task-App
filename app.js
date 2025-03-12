@@ -84,6 +84,7 @@ async function loadTask() {
       document.getElementById("title").addEventListener("input",(e)=>{
         console.log(e.target.value)
         if(e.target.value!=""){
+          
           document.getElementById("create").disabled=false;
         }
         else{
@@ -95,7 +96,7 @@ async function loadTask() {
       modal.style.display = "flex"
       const title=document.getElementById("title");
       
-        document.getElementById("create").disabled=true;
+      document.getElementById("create").disabled=true;
       
     };
     });
@@ -166,6 +167,9 @@ function addTask(task, parentDiv) {
     const modal = document.getElementById("myModal");
     modal.style.display = "flex";
     document.getElementById("create").disabled=true;
+    document.getElementById("description").addEventListener("input",(e)=>{
+      document.getElementById("create").disabled=false; 
+    })
     document.getElementById("title").value = task.title;
     document.getElementById("description").value = task.description == undefined ? "" : task.description;
     document.getElementById("dropdown").value = task.status;
