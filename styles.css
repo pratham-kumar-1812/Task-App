@@ -1,7 +1,8 @@
 body {
     margin: 0;
     padding: 0;
-    background: linear-gradient(135deg, #2C3930, #1F2B1F);
+    background: linear-gradient(135deg, #A6B69D, #6C7A64);
+
     font-family: 'Arial', sans-serif;
     height: 100vh;
     color: #DCD7C9;
@@ -9,7 +10,7 @@ body {
 
 header {
     text-align: center;
-    color: #A27B5C;
+    color: #41240d;
     margin: 20px 0;
 }
 
@@ -26,9 +27,10 @@ main {
 }
 
 #openModalBtn {
-    border: none;
+    border: 2px #41240d solid;
     border-radius: 30px;
-    color: #DCD7C9;
+    color: #41240d;;
+    
     background-color: #A27B5C;
     margin-bottom: 20px;
     width: 150px;
