@@ -3,7 +3,7 @@
         <span class="close-button">❌</span>
         <form id="myform">
             <label for="title">Title</label>
-            <input id="title" name="title" class="title" type="text" required>
+            <input id="title" name="title" class="title" type="text"  maxlength="26" placeholder="Max 26 characters" required>
             
             <label for="description">Description</label>
             <textarea name="description" id="description" required></textarea>
@@ -120,7 +120,7 @@ textarea {
 }
 
 .create:hover {
-    background-color: #3F4F44;
+    
     transform: scale(1.05);
 }
 
