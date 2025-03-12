@@ -94,9 +94,9 @@ async function loadTask() {
       const modal = document.getElementById("myModal");
       modal.style.display = "flex"
       const title=document.getElementById("title");
-      if(title.value==""){
+      
         document.getElementById("create").disabled=true;
-      }
+      
     };
     });
 }
@@ -165,6 +165,7 @@ function addTask(task, parentDiv) {
   EditButton.onclick = function () {
     const modal = document.getElementById("myModal");
     modal.style.display = "flex";
+    document.getElementById("create").disabled=true;
     document.getElementById("title").value = task.title;
     document.getElementById("description").value = task.description == undefined ? "" : task.description;
     document.getElementById("dropdown").value = task.status;
