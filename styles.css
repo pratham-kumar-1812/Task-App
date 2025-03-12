@@ -6,6 +6,9 @@ body {
     font-family: 'Arial', sans-serif;
     height: 100vh;
     color: #DCD7C9;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 header {
