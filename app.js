@@ -80,6 +80,16 @@ async function loadTask() {
         modal.style.display = "none";
         document.getElementById("myform").reset();
       };
+      // Event Listener to disable the Save button
+      document.getElementById("title").addEventListener("input",(e)=>{
+        console.log(e.target.value)
+        if(e.target.value!=""){
+          document.getElementById("create").disabled=false;
+        }
+        else{
+          document.getElementById("create").disabled=true;
+        }
+    })
     });
 }
 
@@ -91,7 +101,7 @@ function saveDataToLocalStorage() {
 // DOM Manipulation
 openModalBtn.onclick = function () {
   const modal = document.getElementById("myModal");
-  modal.style.display = "block";
+  modal.style.display = "flex";
 };
 
 function handleDelete(id) {
@@ -149,7 +159,7 @@ function addTask(task, parentDiv) {
   //Edit button eventListener
   EditButton.onclick = function () {
     const modal = document.getElementById("myModal");
-    modal.style.display = "block";
+    modal.style.display = "flex";
     document.getElementById("title").value = task.title;
     document.getElementById("description").value = task.description == undefined ? "" : task.description;
     document.getElementById("dropdown").value = task.status;
@@ -262,3 +272,6 @@ deleteModal.addEventListener("click", (event) => {
     closeDeleteModal();
   }
 });
+
+// disable the Save button
+
